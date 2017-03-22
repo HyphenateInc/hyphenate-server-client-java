@@ -3,7 +3,7 @@ package io.hyphenate.server.api;
 public interface AuthTokenAPI {	
 
 	/**
-	 * Request an Authentication Token <br>
+	 * Request an Authentication Token
 	 * POST
 	 *
 	 * @param clientId
