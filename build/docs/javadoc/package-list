@@ -1,0 +1,10 @@
+io.hyphenate.server
+io.hyphenate.server.api
+io.hyphenate.server.api.impl
+io.hyphenate.server.comm
+io.hyphenate.server.comm.body
+io.hyphenate.server.comm.constant
+io.hyphenate.server.comm.helper
+io.hyphenate.server.comm.invoker
+io.hyphenate.server.comm.utils
+io.hyphenate.server.comm.wrapper

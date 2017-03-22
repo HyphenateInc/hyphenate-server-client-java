@@ -1,7 +1,7 @@
 package io.hyphenate.server.comm.utils;
 
-import io.hyphenate.server.comm.MyX509TrustManager;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import io.hyphenate.server.comm.MyX509TrustManager;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
