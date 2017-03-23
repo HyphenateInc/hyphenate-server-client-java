@@ -56,10 +56,11 @@ public class RestAPIUtilsTest {
     }
 
     @Test
-    public void testGetHttpClient_2() throws Exception {
+    // See docs.hyphenate.io for keystore creation instruction
+    public void testGetHttpClient_hyphenateAPIServer() throws Exception {
         Boolean isSSL = true;
-        String carcertFilePath = "src/main/resources/cacert/mykeystore.jks";
-        String cacertFilePassword = "123456";
+        String carcertFilePath = "src/main/resources/cacert/hyphenate_demo.keystore";
+        String cacertFilePassword = "hyphenate";
         String url = "https://api.hyphenate.io/status";
         HttpClient client = RestAPIUtils.getHttpClient(isSSL, carcertFilePath, cacertFilePassword);
         URL target = new URL(url);
