@@ -1,8 +1,8 @@
 package io.hyphenate.server.comm;
 
+import io.hyphenate.server.comm.invoker.HttpClientRestAPIInvoker;
 import io.hyphenate.server.api.HyphenateRestAPI;
 import io.hyphenate.server.api.RestAPIInvoker;
-import io.hyphenate.server.comm.invoker.HttpClientRestAPIInvoker;
 import io.hyphenate.server.comm.invoker.JerseyRestAPIInvoker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

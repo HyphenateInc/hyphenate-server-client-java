@@ -1,10 +1,10 @@
 package io.hyphenate.server.comm;
 
 import io.hyphenate.server.comm.wrapper.ResponseWrapper;
+import io.hyphenate.server.api.AuthTokenAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.hyphenate.server.api.AuthTokenAPI;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class TokenGenerator {

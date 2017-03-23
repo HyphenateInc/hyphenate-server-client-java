@@ -1,17 +1,16 @@
 package io.hyphenate.server.api.impl;
 
+import io.hyphenate.server.api.AuthTokenAPI;
+import io.hyphenate.server.comm.body.AuthTokenBody;
+import io.hyphenate.server.comm.constant.HTTPMethod;
+import io.hyphenate.server.comm.helper.HeaderHelper;
+import io.hyphenate.server.comm.wrapper.BodyWrapper;
+import io.hyphenate.server.comm.wrapper.HeaderWrapper;
+import io.hyphenate.server.api.HyphenateRestAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.hyphenate.server.api.AuthTokenAPI;
-import io.hyphenate.server.api.HyphenateRestAPI;
-import io.hyphenate.server.comm.wrapper.BodyWrapper;
-import io.hyphenate.server.comm.constant.HTTPMethod;
-import io.hyphenate.server.comm.helper.HeaderHelper;
-import io.hyphenate.server.comm.wrapper.HeaderWrapper;
-import io.hyphenate.server.comm.body.AuthTokenBody;
-
-public class HyphenateAuthToken extends HyphenateRestAPI implements AuthTokenAPI{
+public class HyphenateAuthToken extends HyphenateRestAPI implements AuthTokenAPI {
 	
 	public static final String ROOT_URI = "/token";
 	

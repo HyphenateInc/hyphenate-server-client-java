@@ -1,15 +1,15 @@
 package io.hyphenate.server.api.impl;
 
+import io.hyphenate.server.api.IMUserAPI;
+import io.hyphenate.server.comm.wrapper.QueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.hyphenate.server.api.HyphenateRestAPI;
-import io.hyphenate.server.api.IMUserAPI;
 import io.hyphenate.server.comm.wrapper.BodyWrapper;
 import io.hyphenate.server.comm.constant.HTTPMethod;
 import io.hyphenate.server.comm.helper.HeaderHelper;
 import io.hyphenate.server.comm.wrapper.HeaderWrapper;
-import io.hyphenate.server.comm.wrapper.QueryWrapper;
 
 public class HyphenateIMUsers extends HyphenateRestAPI implements IMUserAPI {
 
