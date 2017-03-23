@@ -110,7 +110,23 @@ Run the following command and open the project from Intellij IDEA
 
     > gradlew.bat idea
 
+
+
 ## Build from Command line
+
+#### Unix or Mac
+
+Compile and package the project
+
+```bash
+$ ./gradlew jar
+```
+
+see all Gradle commands
+```bash
+$ ./gradlew tasks
+```
+
 
 #### Windows
 
