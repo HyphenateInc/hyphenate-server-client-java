@@ -2,26 +2,23 @@ package io.hyphenate.server.comm.body;
 
 import com.fasterxml.jackson.databind.node.ContainerNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.commons.lang3.StringUtils;
-
 import io.hyphenate.server.comm.constant.MsgType;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
-public class ImgMessageBody extends MessageBody {
+public class AudioMessageBody extends MessageBody {
     private String url;
     private String filename;
     private String secret;
-    private Long width;
-    private Long height;
+    private Long length;
 
-    public ImgMessageBody(String targetType, String[] targets, String from, Map<String, String> ext, String url, String filename, String secret, Long width, Long height) {
+    public AudioMessageBody(String targetType, String[] targets, String from, Map<String, String> ext, String url, String filename, String secret, Long length) {
         super(targetType, targets, from, ext);
         this.url = url;
         this.filename = filename;
         this.secret = secret;
-        this.width = width;
-        this.height = height;
+        this.length = length;
     }
 
     public String getUrl() {
@@ -36,30 +33,26 @@ public class ImgMessageBody extends MessageBody {
         return secret;
     }
 
-    public Long getWidth() {
-        return width;
-    }
-
-    public Long getHeight() {
-        return height;
+    public Long getLength() {
+        return length;
     }
 
     public ContainerNode<?> getBody() {
-        if(!this.isInit()) {
+        if (!this.isInit()) {
             ObjectNode msg = this.getMsgBody().putObject("msg");
-            msg.put("type", MsgType.IMG);
+            msg.put("type", MsgType.AUDIO);
             msg.put("url", url);
             msg.put("filename", filename);
             msg.put("secret", secret);
-            if (null != width && null != height) {
-                msg.putObject("size").put("width", width).put("height", height);
-            }
+            msg.put("length", length);
             this.setInit(true);
         }
+
         return this.getMsgBody();
     }
 
+    @Override
     public Boolean validate() {
-        return super.validate() && StringUtils.isNoneBlank(url) && StringUtils.isNoneBlank(filename) && StringUtils.isNoneBlank(secret);
+        return super.validate() && StringUtils.isNoneBlank(url) && StringUtils.isNoneBlank(filename) && StringUtils.isNoneBlank(secret) && null != length;
     }
 }

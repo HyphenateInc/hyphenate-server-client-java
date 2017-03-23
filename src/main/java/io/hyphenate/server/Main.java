@@ -1,8 +1,8 @@
 package io.hyphenate.server;
 
+import io.hyphenate.server.comm.HyphenateRestAPIFactory;
 import io.hyphenate.server.api.*;
 import io.hyphenate.server.comm.ClientContext;
-import io.hyphenate.server.comm.HyphenateRestAPIFactory;
 import io.hyphenate.server.comm.body.IMUserBody;
 import io.hyphenate.server.comm.wrapper.BodyWrapper;
 
