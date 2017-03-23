@@ -76,8 +76,8 @@ public class HyphenateRestAPIFactory {
     }
 
     private Object getClassInstance(String className) {
-        Class<?> targetClass = null;
-        Object newObj = null;
+        Class<?> targetClass;
+        Object newObj;
 
         try {
             targetClass = Class.forName(BASE_PACKAGE + "." + className);
@@ -97,7 +97,7 @@ public class HyphenateRestAPIFactory {
             throw new RuntimeException(msg);
         }
 
-        RestAPIInvoker invoker = null;
+        RestAPIInvoker invoker;
         if (ClientContext.HTTPCLIENT_API.equals(context.getImpLib())) {
             invoker = httpclient;
         } else {
