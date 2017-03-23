@@ -56,7 +56,7 @@ public class RestAPIUtilsTest {
     }
 
     @Test
-    // See docs.hyphenate.io for keystore creation instruction
+    // See https://docs.hyphenate.io/v1.0/docs/keystore-generation-with-public-cer for details
     public void testGetHttpClient_hyphenateAPIServer() throws Exception {
         Boolean isSSL = true;
         String carcertFilePath = "src/main/resources/cacert/hyphenate_demo.keystore";
