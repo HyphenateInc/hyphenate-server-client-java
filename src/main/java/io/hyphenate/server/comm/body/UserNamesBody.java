@@ -24,8 +24,7 @@ public class UserNamesBody implements BodyWrapper {
     public ContainerNode<?> getBody() {
         ObjectNode body = JsonNodeFactory.instance.objectNode();
         ArrayNode names = JsonNodeFactory.instance.arrayNode();
-        body.put("usernames", names);
-
+        body.set("usernames", names);
         for (String user: users) {
             names.add(user);
         }

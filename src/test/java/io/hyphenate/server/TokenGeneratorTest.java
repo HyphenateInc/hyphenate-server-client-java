@@ -1,5 +1,8 @@
 package io.hyphenate.server;
 
+import io.hyphenate.server.comm.ClientContext;
+import io.hyphenate.server.comm.TokenGenerator;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

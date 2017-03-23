@@ -1,5 +1,7 @@
 package io.hyphenate.server.utils;
 
+import io.hyphenate.server.comm.utils.RestAPIUtils;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;

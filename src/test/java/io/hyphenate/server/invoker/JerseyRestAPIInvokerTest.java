@@ -1,4 +1,5 @@
 package io.hyphenate.server.invoker;
+import io.hyphenate.server.comm.invoker.JerseyRestAPIInvoker;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.hyphenate.server.comm.ClientContext;
