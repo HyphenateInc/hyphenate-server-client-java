@@ -74,10 +74,7 @@ public class ClientContext {
 
     private String clientSecret;
 
-    private ClientContext() {
-    }
-
-    ;
+    private ClientContext() {};
 
     public static ClientContext getInstance() {
         if (null == context) {

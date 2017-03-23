@@ -30,7 +30,7 @@ public class TokenGeneratorTest {
     public void testRequest_1() throws Exception {
         ClientContext context = ClientContext.getInstance().init(ClientContext.INIT_FROM_PROPERTIES);
         TokenGenerator tokenGenerator = new TokenGenerator(context);
-        String token = tokenGenerator.request(false);
+        String token = tokenGenerator.request(true);
         assertNotNull(token);
     }
 
