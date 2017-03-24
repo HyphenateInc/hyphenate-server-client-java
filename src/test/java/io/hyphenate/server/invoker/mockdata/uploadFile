@@ -2,7 +2,7 @@
   "action": "post",
   "application": "22bcffa0-8f86-11e6-9df8-516f6df68c6d",
   "path": "/chatfiles",
-  "uri": "https://api.hyphenate.io/1122161011178276/testapp/chatfiles",
+  "uri": "https://api.hyphenate.io/hyphenatedemo/demo/chatfiles",
   "entities": [
     {
       "uuid": "d510b290-a7fb-11e6-8cdb-b506d385961b",
@@ -12,6 +12,6 @@
   ],
   "timestamp": 1478861073465,
   "duration": 56,
-  "organization": "1122161011178276",
+  "organization": "hyphenatedemo",
   "applicationName": "testapp"
 }
