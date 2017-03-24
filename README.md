@@ -68,11 +68,15 @@ APP_CLIENT_SECRET = YXA63_RZdbtXQB9QZsizSCgMC70_4Rs
 
 We recommend using [maven](http://maven.apache.org) or [gradle](http://gradle.org) to build server components.  
 
+### Generate keystore
+
+[Keystore Generation with public site certificate](https://docs.hyphenate.io/docs/keystore-generation-with-public-cer)
+
 ## REST APIs Documentation 
 
 [Usage](https://api-docs.hyphenate.io)
 
-###Rate Limiting
+### Rate Limiting
 
 By default, requests are sent at the expected rate limits for each web service, typically 30 queries per second for free users.  
 Each IP address is limited to 30 requests per second. Requests beyond this limit will receive a 429 or 503 error. If you received this error, please reduce the request frequency and try again.
