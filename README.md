@@ -102,11 +102,9 @@ Run the following command, it'll generate necessary Eclipse files, then import v
 
 #### Unix or Mac
 
-	$ gradle idea
-	
-Use Maven to import module `examples.iml` when IntelliJ prompt during the initial project opening. 
+- "Import Project" -> select project root folder -> select "Import project from external model" -> select "Gradle" -> select "Use auto-import" and "Create separate module per source set" -> select "Use default gradle wrapper" -> Select "1.7" for Gradle JVM -> ".idea" for project format -> click "Finish" 
 
-Or add the module manually by, File -> Project Structure (⌘;) -> Add (⌘N) -> Import Module -> select examples.iml file.
+- [Setup unit testing](https://docs.hyphenate.io/docs/keystore-generation-with-public-cer#section-note-here-s-the-setup-to-run-unit-testing-for-intellij-idea)
 
 #### Windows
 
