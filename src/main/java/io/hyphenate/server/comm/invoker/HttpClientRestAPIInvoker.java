@@ -171,6 +171,12 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
 
             response = client.execute(httppost);
 
+            responseWrapper = readResponse(responseWrapper, response, false);
+
+            log.debug("=============Response=============");
+            log.debug(responseWrapper.toString());
+            log.debug("===========Response End===========");
+
         } catch (Exception e) {
             responseWrapper.addError(e.getMessage());
             return responseWrapper;
@@ -183,11 +189,6 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
             }
         }
 
-        responseWrapper = readResponse(responseWrapper, response, false);
-
-        log.debug("=============Response=============");
-        log.debug(responseWrapper.toString());
-        log.debug("===========Response End===========");
         return responseWrapper;
     }
 
