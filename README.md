@@ -4,7 +4,7 @@ The Java Client for Hyphenate Services is for use in server applications on a pr
 
 ## Support
 
-This library is open source. We encourage you to contribute to make the code base better! If you encountered any bug or feature suggestion, please [submit an issue](https://github.io.hyphenateInc/hyphenate-server-client-js/issues) or email support@hyphenate.io for urgent fixes.
+This library is open source. We encourage you to contribute to make the code base better! If you encountered any bug or feature suggestion, please [submit an issue](https://github.io.hyphenateInc/hyphenate-server-client-java/issues) or email support@hyphenate.io for urgent fixes.
 
 
 ## Requirement
@@ -13,7 +13,7 @@ This library is open source. We encourage you to contribute to make the code bas
 - Java 1.7 or later. Latest version of the [Java](http://java.sun.com/javase/downloads/index.jsp).
 
 
-##Installation
+## Installation
 
 You can add the library via Gradle or Maven, which we recommended, or compile it from command line. 
 
@@ -48,7 +48,7 @@ dependencies {
 
 ### Configuration 
 
-Update Hyphenate app properties in `config.properties`.
+Update Hyphenate app configurations in `config.properties`.
 
 ```java
 API_ORG = hyphenatedemo
