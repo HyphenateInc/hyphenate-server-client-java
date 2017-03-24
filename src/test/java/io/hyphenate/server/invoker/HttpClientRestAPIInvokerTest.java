@@ -60,6 +60,7 @@ public class HttpClientRestAPIInvokerTest {
     }
 
     @Test
+    // test send file successfully with 200
     public void testSendRequest_1() throws Exception {
         IMocksControl mocksControl = EasyMock.createControl();
         HttpClient clientMock = mocksControl.createMock(HttpClient.class);
@@ -87,6 +88,7 @@ public class HttpClientRestAPIInvokerTest {
     }
 
     @Test
+    // test missing user
     public void testSendRequest_2() throws Exception {
         IMocksControl mocksControl = EasyMock.createControl();
         HttpClient clientMock = mocksControl.createMock(HttpClient.class);
@@ -96,14 +98,14 @@ public class HttpClientRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
-        FileInputStream fileInputStream = new FileInputStream("test/io.hyphenate.server/invoker/mockdata/getUser002");
+        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser002");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
         mocksControl.replay();
 
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user002";
+        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user111";
         String token = "YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc";
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
@@ -113,6 +115,36 @@ public class HttpClientRestAPIInvokerTest {
         String json = mapper.writeValueAsString(responseWrapper.getResponseBody());
         JsonNode jsonNode = mapper.readTree(json);
         assertEquals("\"service_resource_not_found\"", jsonNode.get("error").toString());
+    }
+
+    @Test
+    // test false token
+    public void testSendRequest_falseToken() throws Exception {
+        IMocksControl mocksControl = EasyMock.createControl();
+        HttpClient clientMock = mocksControl.createMock(HttpClient.class);
+        HttpResponse responseMock = mocksControl.createMock(HttpResponse.class);
+        HttpUriRequest requestMock = mocksControl.createMock(HttpUriRequest.class);
+        HttpEntity entityMock = mocksControl.createMock(HttpEntity.class);
+        StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
+        EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
+        EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
+        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser002");
+        fileInputStream.close();
+        EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
+        EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
+        mocksControl.replay();
+
+        String method = "GET";
+        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user002";
+        String token = "YWMt3elu7g9vZHPzWBPZAzKRZc";
+        HeaderWrapper header = new HeaderWrapper();
+        header.addAuthorization(token);
+        ResponseWrapper responseWrapper = httpClient.sendRequest(method, url, header, null, null);
+        assertEquals("401", responseWrapper.getResponseStatus().toString());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(responseWrapper.getResponseBody());
+        JsonNode jsonNode = mapper.readTree(json);
+        assertEquals("\"auth_bad_access_token\"", jsonNode.get("error").toString());
     }
 
     @Test

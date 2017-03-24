@@ -60,7 +60,7 @@ public class JerseyRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(200);
-        FileInputStream fileInputStream = new FileInputStream("test/io.hyphenate.server.comm/invoker/mockdata/get user001");
+        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser001");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
