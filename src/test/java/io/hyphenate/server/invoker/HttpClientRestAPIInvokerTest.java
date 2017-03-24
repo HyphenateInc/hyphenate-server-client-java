@@ -44,6 +44,11 @@ import static org.junit.Assert.assertNull;
 public class HttpClientRestAPIInvokerTest {
 
     private HttpClientRestAPIInvoker httpClient;
+    private String configOrg;
+    private String configAppName;
+    private String apiUrl;
+    private String resourcesPath = "src/test/java/io/hyphenate/server/invoker/mockdata/";
+    private String configToken = "YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc";
 
     @BeforeClass
     public static void beforeClass() {
@@ -53,6 +58,9 @@ public class HttpClientRestAPIInvokerTest {
     @Before
     public void before() throws Exception {
         httpClient = new HttpClientRestAPIInvoker();
+        configOrg = ClientContext.getInstance().getOrg();
+        configAppName = ClientContext.getInstance().getApp();
+        apiUrl = "https://api.hyphenate.io/" + configOrg + "/" + configAppName;
     }
 
     @After
@@ -70,15 +78,15 @@ public class HttpClientRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(200);
-        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser001");
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "getUser001");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
         mocksControl.replay();
 
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user001";
-        String token = "YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc";
+        String url = apiUrl + "/users/user001";
+        String token = configToken;
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
         ResponseWrapper responseWrapper = httpClient.sendRequest(method, url, header, null, null);
@@ -98,15 +106,15 @@ public class HttpClientRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
-        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser002");
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "getUser002");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
         mocksControl.replay();
 
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user111";
-        String token = "YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc";
+        String url = apiUrl + "/users/user111";
+        String token = configToken;
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
         ResponseWrapper responseWrapper = httpClient.sendRequest(method, url, header, null, null);
@@ -128,15 +136,45 @@ public class HttpClientRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
-        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser002");
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "getUser002");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
         mocksControl.replay();
 
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user002";
-        String token = "YWMt3elu7g9vZHPzWBPZAzKRZc";
+        String url = apiUrl + "/users/user002";
+        String token = "thisisafalsetokenplaceholder";
+        HeaderWrapper header = new HeaderWrapper();
+        header.addAuthorization(token);
+        ResponseWrapper responseWrapper = httpClient.sendRequest(method, url, header, null, null);
+        assertEquals("401", responseWrapper.getResponseStatus().toString());
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(responseWrapper.getResponseBody());
+        JsonNode jsonNode = mapper.readTree(json);
+        assertEquals("\"unauthorized\"", jsonNode.get("error").toString());
+    }
+
+    @Test
+    // test bad token. Valid token, but with some characters in the middle removed
+    public void testSendRequest_falseToken_2() throws Exception {
+        IMocksControl mocksControl = EasyMock.createControl();
+        HttpClient clientMock = mocksControl.createMock(HttpClient.class);
+        HttpResponse responseMock = mocksControl.createMock(HttpResponse.class);
+        HttpUriRequest requestMock = mocksControl.createMock(HttpUriRequest.class);
+        HttpEntity entityMock = mocksControl.createMock(HttpEntity.class);
+        StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
+        EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
+        EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "getUser002");
+        fileInputStream.close();
+        EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
+        EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
+        mocksControl.replay();
+
+        String method = "GET";
+        String url = apiUrl + "/users/user002";
+        String token = "YWMt3elu7g9vEeeXtrPz3k8ZHPzWBPZAzKRZc";
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
         ResponseWrapper responseWrapper = httpClient.sendRequest(method, url, header, null, null);
@@ -165,7 +203,7 @@ public class HttpClientRestAPIInvokerTest {
     @Test
     public void testSendRequest_4() throws Exception {
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users";
+        String url = apiUrl + "/users";
         String token = "error";
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
@@ -187,15 +225,15 @@ public class HttpClientRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(404);
-        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/uploadFile");
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "responseUploadedFile");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(httpPostMock)).andReturn(responseMock);
         mocksControl.replay();
 
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/chatfiles";
+        String url = apiUrl + "/chatfiles";
         HeaderWrapper headerWrapper = new HeaderWrapper();
-        headerWrapper.addAuthorization("YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc");
+        headerWrapper.addAuthorization(configToken);
         File file = new File("src/test/resources/audio/audio.mp3");
         ResponseWrapper responseWrapper = httpClient.uploadFile(url, headerWrapper, file);
         assertEquals("200", responseWrapper.getResponseStatus().toString());
@@ -222,6 +260,7 @@ public class HttpClientRestAPIInvokerTest {
     }
 
     @Test
+    // File with access-restriction. Require "share-secret" to obtain the file
     public void testDownloadFile_1() throws Exception {
         IMocksControl mocksControl = EasyMock.createControl();
         CloseableHttpClient clientMock = mocksControl.createMock(CloseableHttpClient.class);
@@ -235,18 +274,19 @@ public class HttpClientRestAPIInvokerTest {
         EasyMock.expect(clientMock.execute(httpGetMock)).andReturn(responseMock);
         mocksControl.replay();
 
-        String uuid = "6b9dda80-a63a-11e6-95e3-751d965c5829";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/chatfiles/" + uuid;
+        String uuid = "842cfdc0-103d-11e7-b588-a5c1825ca2ba";
+        String url = apiUrl + "/chatfiles/" + uuid;
         HeaderWrapper header = new HeaderWrapper();
-        header.addAuthorization("YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc")
+        header.addAuthorization(configToken)
                 .addHeader("accept", "application/octet-stream")
-                .addHeader("share-secret", "a53aiqY6EeaDcifITFyHkxDumQF33z2fFpbdemGk1UTC27kk")
+                .addHeader("share-secret", "hCz9yhA9Eeef7pNOvDqJpo-_UvoCwtqTvRfxAp6iMzbRM_Eb")
                 .addHeader("thumbnail", "true");
         ResponseWrapper responseWrapper = httpClient.downloadFile(url, header);
         assertEquals("200", responseWrapper.getResponseStatus().toString());
     }
 
     @Test
+    // File without access-restriction
     public void testDownloadFile_2() throws Exception {
         IMocksControl mocksControl = EasyMock.createControl();
         CloseableHttpClient clientMock = mocksControl.createMock(CloseableHttpClient.class);
@@ -259,8 +299,8 @@ public class HttpClientRestAPIInvokerTest {
         EasyMock.expect(entityMock.getContent()).andReturn(new ByteArrayInputStream(new byte[]{}));
         EasyMock.expect(clientMock.execute(httpGetMock)).andReturn(responseMock);
         mocksControl.replay();
-        String uuid = "6b9dda80-a63a-11e6-95e3-751d965c5829";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/chatfiles/" + uuid;
+        String uuid = "f6f987c0-103c-11e7-9523-e90f047d5852";
+        String url = apiUrl + "/chatfiles/" + uuid;
         ResponseWrapper responseWrapper = httpClient.downloadFile(url, null);
         assertEquals("200", responseWrapper.getResponseStatus().toString());
     }

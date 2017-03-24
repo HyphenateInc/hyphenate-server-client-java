@@ -35,6 +35,10 @@ import static org.junit.Assert.assertEquals;
 public class JerseyRestAPIInvokerTest {
 
     private JerseyRestAPIInvoker jerseyClient;
+    private String configOrg;
+    private String configAppName;
+    private String apiUrl;
+    private String resourcesPath = "src/test/java/io/hyphenate/server/invoker/mockdata/";
 
     @BeforeClass
     public static void beforeClass(){
@@ -44,6 +48,9 @@ public class JerseyRestAPIInvokerTest {
     @Before
     public void before() throws Exception {
         jerseyClient = new JerseyRestAPIInvoker();
+        configOrg = ClientContext.getInstance().getOrg();
+        configAppName = ClientContext.getInstance().getApp();
+        apiUrl = "https://api.hyphenate.io/" + configOrg + "/" + configAppName;
     }
 
     @After
@@ -60,14 +67,14 @@ public class JerseyRestAPIInvokerTest {
         StatusLine statusLineMock = mocksControl.createMock(StatusLine.class);
         EasyMock.expect(responseMock.getStatusLine()).andReturn(statusLineMock);
         EasyMock.expect(statusLineMock.getStatusCode()).andReturn(200);
-        FileInputStream fileInputStream = new FileInputStream("src/test/java/io/hyphenate/server/invoker/mockdata/getUser001");
+        FileInputStream fileInputStream = new FileInputStream(resourcesPath + "getUser001");
         fileInputStream.close();
         EasyMock.expect(entityMock.getContent()).andReturn(fileInputStream);
         EasyMock.expect(clientMock.execute(requestMock)).andReturn(responseMock);
         mocksControl.replay();
 
         String method = "GET";
-        String url = "https://api.hyphenate.io/hyphenatedemo/demo/users/user001";
+        String url = apiUrl + "/users/user001";
         String token = "YWMt3elu7g9vEeeXtrPz3krXpQAAAVwt-IENLIL9ZN3wxEgh8ZHPzWBPZAzKRZc";
         HeaderWrapper header = new HeaderWrapper();
         header.addAuthorization(token);
