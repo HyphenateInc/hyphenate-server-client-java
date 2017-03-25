@@ -18,34 +18,6 @@ This library is open source. We encourage you to contribute to make the code bas
 You can add the library via Gradle or Maven, which we recommended, or compile it from command line. 
 
 
-### Maven
-
-**pom.xml**
- 
-```xml
-<dependency>
-    <groupId>io.hyphenate.server</groupId>
-    <artifactId>hyphenate-services</artifactId>
-    <version>(insert latest version)</version>
-</dependency>
-```
-
-
-### Gradle
-
-**build.gradle**
-
-```xml
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'io.hyphenate:hyphenate-services:(insert latest version)'
-    ...
-}
-```
-
 ### Configuration 
 
 Update Hyphenate app configurations in `config.properties`.
